@@ -1,6 +1,6 @@
 # vue-app
 
-> Vue app project
+> vue app
 
 ## Build Setup
 

@@ -26,31 +26,41 @@
                 </tbody>
             </table>
         </div>
+        <!-- shopping basket -->
         <div class="col-sm-12 col-md-6">
-            <table class="table">
-                <thead class="thead-default">
+            <div v-if="basket.length > 0">
+                <table class="table">
+                    <thead class="thead-default">
+                        <tr>
+                            <th>Quantity</th>
+                            <th>Item</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="item in basket">
                     <tr>
-                        <th>Quantity</th>
-                        <th>Item</th>
-                        <th>Total</th>
+                            <td>
+                                <buttton class="btn btn-sm" 
+                                type="button"
+                                @click="decreaseQuantity(item)">-</buttton>
+                                <span>{{ item.quantity }}</span>
+                                <buttton class="btn btn-sm" 
+                                type="button"
+                                @click="increaseQuantity(item)">+</buttton>
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.price * item.quantity }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                   <tr>
-                        <td>
-                            <buttton class="btn btn-sm" type="button">-</buttton>
-                            <span>1-</span>
-                            <buttton class="btn btn-sm" type="button">+</buttton>
-                        </td>
-                        <td>Margherita 9"</td>
-                        <td>9.95</td>
-                   </tr>
-                </tbody>
-            </table>
-            <p>Order total:</p>
-            <button class="btn btn-success btn-block">
-                Place Order
-            </button>
+                    </tbody>
+                </table>
+                <p>Order total:</p>
+                <button class="btn btn-success btn-block">
+                    Place Order
+                </button>
+            </div>
+            <div v-else>
+                <p>{{ basketText }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -60,6 +70,7 @@ export default {
     data(){
         return {
             basket: [],
+            basketText: "Your basket is empty",
             getMenuItems: {
                 1: {
                     'name': 'Margherita',
@@ -105,6 +116,18 @@ export default {
                 size: option.size,
                 quantity: 1
             })
+        },
+        removeFromBasket(item){
+            this.basket.splice(this.basket.indexOf(item),1);
+        },
+        increaseQuantity(item){
+            item.quantity++;
+        },
+        decreaseQuantity(item){
+            item.quantity--;
+            if(item.quantity === 0){
+                this.removeFromBasket(item)
+            }
         }
     } 
 }
