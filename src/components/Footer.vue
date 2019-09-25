@@ -2,21 +2,21 @@
     <footer class="row">
         <nav class="navbar navbar-toggleable-md navbar-light">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                  <router-link :to="{name: 'homeLink'}" tag="li">
                     <a class="nav-link" href="">
                     home
                     </a>
-                </li>
-                <li class="nav-item">
+                  </router-link>
+                  <router-link :to="{name: 'aboutLink'}" tag="li">
                     <a class="nav-link" href="">
-                    menu
+                    about
                     </a>
-                </li>
-                <li class="nav-item">
+                  </router-link>
+                  <router-link :to="{name: 'adminLink'}" tag="li">
                     <a class="nav-link" href="">
                     admin
                     </a>
-                </li>
+                </router-link>
             </ul>
         </nav>
     </footer>

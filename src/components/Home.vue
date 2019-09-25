@@ -4,9 +4,8 @@
             <div class="background">
             <h1>Welcome to my Vue App!</h1>
             <h2>Feeling hungry?</h2>
-            <router-link :to="menuLink">
-              <button class="btn btn-success">Let's order!</button>
-            </router-link>
+            <button class="btn btn-success"
+            @click="goToMenu">Let's order!</button>
             </div>
         </div>
     </div>
@@ -14,9 +13,9 @@
 
 <script>
   export default {
-    data(){
-      return {
-        menuLink: '/menu',
+    methods:{
+      goToMenu(){
+        this.$router.push({name: 'menuLink'});
       }
     }
   }
