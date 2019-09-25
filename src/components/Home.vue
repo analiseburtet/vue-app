@@ -4,11 +4,24 @@
             <div class="background">
             <h1>Welcome to my Vue App!</h1>
             <h2>Feeling hungry?</h2>
-            <button class="btn btn-success">Let's order!</button>
+            <router-link :to="menuLink">
+              <button class="btn btn-success">Let's order!</button>
+            </router-link>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+  export default {
+    data(){
+      return {
+        menuLink: '/menu',
+      }
+    }
+  }
+</script>
+
 <style>
 #home {
     background: url("../../src/assets/pizza.jpg");

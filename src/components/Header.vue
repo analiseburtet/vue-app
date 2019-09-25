@@ -1,24 +1,37 @@
 <template>
     <header class="row">
         <nav class="navbar navbar-toggleable-md navbar-light">
-            <a class="navbar-brand" href="/">
+            <router-link :to="homeLink">
+              <a class="navbar-brand">
                 Vue App
-            </a>
+              </a>
+            </router-link>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="">
+                  <router-link :to="homeLink" tag="li">
+                    <a class="nav-link">
                     home
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">
+                  </router-link>
+                  <router-link :to="menuLink" tag="li">
+                    <a class="nav-link">
                     menu
                     </a>
-                </li>
+                  </router-link>
             </ul>
         </nav>
     </header>
 </template>
+
+<script>
+  export default {
+    data(){
+      return {
+        homeLink: '/',
+        menuLink: '/menu'
+      }
+    }
+  }
+</script>
 <style>
     header {
         margin-bottom: 20px;

@@ -1,5 +1,6 @@
 <template>
     <div class="row">
+      {{ $route.params.items }}
         <div class="col-sm-12 col-md-6">
             <table class="table table-hover">
                 <thead class="thead-default">
@@ -17,8 +18,8 @@
                         <td>{{ option.size }}</td>
                         <td>{{ option.price }}</td>
                         <td>
-                        <button 
-                            class="btn btn-sm btn-outline-success" 
+                        <button
+                            class="btn btn-sm btn-outline-success"
                             type="button"
                             @click="addToBasket( item, option )">+</button>
                         </td>
@@ -40,11 +41,11 @@
                     <tbody v-for="item in basket">
                     <tr>
                             <td>
-                                <buttton class="btn btn-sm" 
+                                <buttton class="btn btn-sm"
                                 type="button"
                                 @click="decreaseQuantity(item)">-</buttton>
                                 <span>{{ item.quantity }}</span>
-                                <buttton class="btn btn-sm" 
+                                <buttton class="btn btn-sm"
                                 type="button"
                                 @click="increaseQuantity(item)">+</buttton>
                             </td>
@@ -106,7 +107,7 @@ export default {
                     }]
                 }
             }
-        }   
+        }
     },
     methods: {
         addToBasket(item,option){
@@ -129,6 +130,6 @@ export default {
                 this.removeFromBasket(item)
             }
         }
-    } 
+    }
 }
 </script>
