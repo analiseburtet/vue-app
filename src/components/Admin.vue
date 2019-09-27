@@ -25,7 +25,7 @@
    <div class="row">
    <div class="col-sm-12">
     <h3>Current orders:</h3>
-    <table class="table table-sm">
+    <table class="table table-sm" v-for="(orders, index) in getOrders" :key="orders['.key']>
         <thead class="thead-default">
         <tr>
             <th>Item</th>
@@ -36,14 +36,14 @@
         </thead>
         <tbody>
         <div class="order-number">
-            <strong><em>Order Number: 1</em></strong>
+            <strong><em>Order Number: {{ index +1 }}</em></strong>
             <button class="btn btn-outline-danger btn-sm">x</button>
         </div>
-        <tr>
-        <td>Mar</td>
-        <td>size</td>
-        <td>1</td>
-        <td>price</td>
+        <tr v-for="orderItems in orders['.value']">
+        <td>{{ orderItems.name }}</td>
+        <td>{{ orderItems.size }}</td>
+        <td>{{ orderItems.quantity }}</td>
+        <td>{{ orderItems.price }}</td>
         </tr>
         </tbody>
         </table>
@@ -60,10 +60,19 @@
 <script>
 import NewPizza from "./NewPizza.vue"
 import Login from "./Login.vue"
+import { mapGetters } from 'vuex'
+
 export default {
   components: {
     ppNewPizza: NewPizza,
     ppLogin: Login
+  },
+  computed:{
+    ...mapGetters([
+      'numberOfOrders',
+      'getMenuItems',
+      'getOrders'
+    ])
   },
   beforeRouteLeave: (to,from,next) =>{
     if(confirm('Have you remembered to log out') == true){

@@ -10,7 +10,7 @@
                         <th>Add to basket</th>
                     </tr>
                 </thead>
-                <tbody v-for="item in getMenuItems">
+                <tbody v-for="item in getMenuItems" :key="item['.key']">
                     <tr>
                         <td><strong>{{ item.name }}</strong></td>
                     </tr>
@@ -55,7 +55,9 @@
                     </tbody>
                 </table>
                 <p>Order total:</p>
-                <button class="btn btn-success btn-block">
+                <button
+                @click="addNewOrder"
+                class="btn btn-success btn-block">
                     Place Order
                 </button>
             </div>
@@ -67,47 +69,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { dbOrdersRef } from '../firebaseConfig'
 export default {
     data(){
         return {
             basket: [],
-            basketText: "Your basket is empty",
-            getMenuItems: {
-                1: {
-                    'name': 'Margherita',
-                    'description': 'A delicious tomato based pizza topped with mozzarella',
-                    'options': [{
-                        'size': 9,
-                        'price': 6.95
-                    }, {
-                        'size': 12,
-                        'price': 10.95
-                    }]
-                },
-                    2: {
-                    'name': 'Pepperoni',
-                    'description': 'A delicious tomato based pizza topped with mozzarella and pepperoni',
-                    'options': [{
-                        'size': 9,
-                        'price': 7.95
-                    }, {
-                        'size': 12,
-                        'price': 12.95
-                    }]
-                },
-                    3: {
-                    'name': 'Ham and Pineapple',
-                    'description': 'A delicious tomato based pizza topped with mozzarella, ham and pineapple',
-                    'options': [{
-                        'size': 9,
-                        'price': 7.95
-                    }, {
-                        'size': 12,
-                        'price': 12.95
-                    }]
-                }
-            }
+            basketText: "Your basket is empty"
         }
+    },
+    computed:{
+      ...mapGetters([
+        'getMenuItems'
+      ])
     },
     methods: {
         addToBasket(item,option){
@@ -129,6 +103,11 @@ export default {
             if(item.quantity === 0){
                 this.removeFromBasket(item)
             }
+        },
+        addNewOrder(){
+          dbOrdersRef.push(this.basket)
+          this.basket = []
+          this.basketText = "Thank you, your order has been placed! :)"
         }
     }
 }
